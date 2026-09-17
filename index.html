@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Peran Agama dalam Seni Budaya di Kalangan Muda</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0f1830;
+    --panel:#17233f;
+    --panel-2:#1e2c4d;
+    --ink:#f6f1e4;
+    --muted:#b9c3da;
+    --gold:#e8b53f;
+    --gold-soft:rgba(232,181,63,.16);
+    --line:rgba(232,181,63,.32);
+    --serif:"Fraunces",Georgia,"Times New Roman",serif;
+    --sans:"Inter","Helvetica Neue",Arial,sans-serif;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{height:100%}
+  body{
+    background:var(--bg);
+    color:var(--ink);
+    font-family:var(--sans);
+    overflow:hidden;
+    display:flex;align-items:center;justify-content:center;
+    -webkit-font-smoothing:antialiased;
+  }
+  #stage{position:relative;width:1280px;height:720px;transform-origin:center center;flex:0 0 auto}
+
+  .slide{
+    position:absolute;inset:0;
+    padding:64px 80px;
+    background:
+      radial-gradient(1100px 520px at 88% -10%, rgba(232,181,63,.10), transparent 60%),
+      radial-gradient(800px 500px at -10% 110%, rgba(90,130,220,.14), transparent 60%),
+      var(--bg);
+    display:flex;flex-direction:column;
+    opacity:0;visibility:hidden;
+    transition:opacity .35s ease;
+  }
+  .slide.active{opacity:1;visibility:visible}
+  .slide::after{
+    content:"";position:absolute;inset:0;pointer-events:none;
+    background-image:radial-gradient(rgba(246,241,228,.055) 1px, transparent 1px);
+    background-size:26px 26px;
+  }
+  .slide > *{position:relative;z-index:1}
+
+  .eyebrow{
+    font-size:15px;letter-spacing:.22em;text-transform:uppercase;
+    color:var(--gold);font-weight:600;margin-bottom:18px;
+  }
+  h1{font-family:var(--serif);font-size:62px;line-height:1.08;font-weight:700;letter-spacing:-.01em}
+  h2{font-family:var(--serif);font-size:46px;line-height:1.14;font-weight:700;margin-bottom:26px}
+  .rule{width:84px;height:4px;background:var(--gold);border-radius:99px;margin:22px 0 26px}
+  p{font-size:21px;line-height:1.62;color:var(--muted)}
+  p + p{margin-top:14px}
+  strong{color:var(--ink);font-weight:600}
+
+  .num{position:absolute;top:44px;right:64px;font-size:14px;letter-spacing:.2em;color:rgba(246,241,228,.42);z-index:2}
+  .brand{position:absolute;bottom:40px;left:80px;font-size:13px;letter-spacing:.16em;text-transform:uppercase;color:rgba(246,241,228,.35);z-index:2}
+
+  .two{display:grid;grid-template-columns:1.15fr .85fr;gap:54px;align-items:start;flex:1}
+  .quote{
+    background:var(--panel-2);border-left:4px solid var(--gold);
+    border-radius:6px;padding:30px 32px;
+    font-family:var(--serif);font-style:italic;font-size:24px;line-height:1.5;color:var(--ink);
+  }
+  .quote small{display:block;margin-top:14px;font-family:var(--sans);font-style:normal;font-size:14px;letter-spacing:.14em;text-transform:uppercase;color:var(--gold)}
+
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+  .grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+  .grid5{display:grid;grid-template-columns:repeat(5,1fr);gap:16px}
+  .card{
+    background:var(--panel);border:1px solid rgba(246,241,228,.09);
+    border-radius:10px;padding:22px 22px 24px;
+  }
+  .card .k{
+    width:34px;height:34px;border-radius:8px;background:var(--gold-soft);
+    color:var(--gold);display:flex;align-items:center;justify-content:center;
+    font-weight:600;font-size:15px;margin-bottom:14px;border:1px solid var(--line);
+  }
+  .card h3{font-size:19px;font-weight:600;margin-bottom:8px;color:var(--ink);letter-spacing:.01em}
+  .card p{font-size:16px;line-height:1.55}
+
+  .list{display:flex;flex-direction:column;gap:14px;margin-top:6px}
+  .list li{list-style:none;display:flex;gap:16px;align-items:flex-start;font-size:20px;line-height:1.5;color:var(--muted)}
+  .list li b{color:var(--gold);font-family:var(--serif);font-size:20px;min-width:30px}
+  .list li span strong{color:var(--ink)}
+
+  .tag{display:inline-block;font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);border:1px solid var(--line);border-radius:99px;padding:6px 14px;margin-bottom:14px}
+
+  .cover{justify-content:center}
+  .cover h1{max-width:940px}
+  .authors{display:flex;gap:56px;margin-top:44px;flex-wrap:wrap}
+  .authors div{font-size:17px;color:var(--muted)}
+  .authors span{display:block;font-size:12px;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);margin-bottom:8px}
+
+  .person{background:var(--panel);border:1px solid rgba(246,241,228,.09);border-radius:12px;padding:26px 24px;display:flex;flex-direction:column;gap:10px}
+  .person .role{font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--gold)}
+  .person .name{font-family:var(--serif);font-size:25px;line-height:1.25;color:var(--ink)}
+  .person .ask{font-size:15px;line-height:1.55;color:var(--muted);border-top:1px solid rgba(246,241,228,.1);padding-top:12px;margin-top:4px}
+  .avatar{width:52px;height:52px;border-radius:50%;background:var(--gold-soft);border:1px solid var(--line);display:flex;align-items:center;justify-content:center;color:var(--gold);font-family:var(--serif);font-size:20px;font-weight:700}
+
+  .noteline{height:1px;background:rgba(246,241,228,.16);margin:14px 0}
+  .fill{color:rgba(246,241,228,.35);font-size:15px;font-style:italic}
+
+  .big{font-family:var(--serif);font-size:34px;line-height:1.35;color:var(--ink);max-width:960px}
+
+  /* kontrol */
+  #bar{position:fixed;left:0;bottom:0;height:4px;background:var(--gold);width:0;transition:width .35s ease;z-index:20}
+  #ctrl{position:fixed;bottom:16px;right:18px;display:flex;gap:8px;z-index:20}
+  #ctrl button{
+    background:rgba(23,35,63,.9);color:var(--ink);border:1px solid rgba(246,241,228,.18);
+    border-radius:8px;width:38px;height:34px;font-size:15px;cursor:pointer;font-family:var(--sans);
+  }
+  #ctrl button:hover{border-color:var(--gold);color:var(--gold)}
+  #hint{position:fixed;bottom:20px;left:18px;font-size:12px;color:rgba(246,241,228,.4);z-index:20;letter-spacing:.06em}
+  @media (max-width:720px){#hint{display:none}}
+</style>
+</head>
+<body>
+<div id="stage">
+
+  <!-- 1 -->
+  <section class="slide cover active">
+    <div class="num">01 / 12</div>
+    <div class="eyebrow">Tugas Makalah Seni Budaya</div>
+    <h1>Peran Agama dalam Seni Budaya di Kalangan Muda</h1>
+    <div class="rule"></div>
+    <p style="max-width:820px">Agama dan budaya tumbuh berdampingan dalam kehidupan generasi muda — bagaimana keduanya saling membentuk di tengah arus globalisasi?</p>
+    <div class="authors">
+      <div><span>Disusun oleh</span>Muhammad Arkananta Permana — X-RPL/23<br>Octavianus Putra Yoddha Chavindo — X-RPL/24</div>
+      <div><span>Sekolah</span>SMK Mikael Surakarta<br>Tahun 2026</div>
+    </div>
+    <div class="brand">SMK Mikael Surakarta</div>
+  </section>
+
+  <!-- 2 -->
+  <section class="slide">
+    <div class="num">02 / 12</div>
+    <div class="eyebrow">Benang Merah Pembahasan</div>
+    <h2>Peta Pembahasan</h2>
+    <p style="max-width:900px;margin-bottom:26px">Pembahasan berangkat dari kenyataan bahwa budaya lokal mulai ditinggalkan generasi muda, sementara hubungan agama dan budaya sendiri masih sering diperdebatkan.</p>
+    <ul class="list">
+      <li><b>01</b><span><strong>Pengertian agama</strong> — apa yang dimaksud agama dan unsur-unsurnya</span></li>
+      <li><b>02</b><span><strong>Pengertian budaya</strong> — asal kata, wujud, dan unsurnya</span></li>
+      <li><b>03</b><span><strong>Mengapa budaya lokal sempat dijauhi</strong> kalangan muda</span></li>
+      <li><b>04</b><span><strong>Benarkah agama mengikis budaya?</strong></span></li>
+      <li><b>05</b><span><strong>Apakah agama mempengaruhi budaya?</strong></span></li>
+      <li><b>06</b><span><strong>Apa fungsi agama</strong> dalam seni budaya</span></li>
+    </ul>
+    <div class="brand">SMK Mikael Surakarta</div>
+  </section>
+
+  <!-- 3 -->
+  <section class="slide">
+    <div class="num">03 / 12</div>
+    <div class="eyebrow">Landasan Teori 1</div>
+    <h2>Pengertian Agama</h2>
+    <div class="two">
+      <div>
+        <p>Agama adalah <strong>sistem keyakinan dan peribadatan kepada Tuhan</strong> yang memuat ajaran, nilai, serta aturan hidup bagi pemeluknya — baik dalam hubungan dengan Tuhan, dengan sesama manusia, maupun dengan lingkungan.</p>
+        <p>Secara bahasa, istilah <em>agama</em> sering dikaitkan dengan bahasa Sanskerta: <strong>a</strong> (tidak) dan <strong>gama</strong> (kacau), yaitu sesuatu yang menjaga hidup manusia agar tidak kacau dan tetap tertib.</p>
+        <p>Dalam kehidupan sehari-hari, agama berfungsi sebagai <strong>pedoman moral</strong>: menentukan mana yang pantas dan tidak pantas dilakukan, termasuk dalam berkarya seni.</p>
+      </div>
+      <div>
+        <div class="card" style="margin-bottom:18px">
+          <div class="k">◆</div>
+          <h3>Unsur-unsur agama</h3>
+          <p>Keyakinan kepada Tuhan · ajaran dan kitab suci · ritual atau peribadatan · umat/komunitas · simbol dan tempat ibadah.</p>
+        </div>
+        <div class="quote" style="font-size:21px">Agama memberi <em>arah nilai</em> bagi manusia dalam berpikir, bersikap, dan berkarya.</div>
+      </div>
+    </div>
+    <div class="brand">SMK Mikael Surakarta</div>
+  </section>
+
+  <!-- 4 -->
+  <section class="slide">
+    <div class="num">04 / 12</div>
+    <div class="eyebrow">Landasan Teori 2</div>
+    <h2>Pengertian Budaya</h2>
+    <p style="max-width:1000px;margin-bottom:24px">Kata <em>budaya</em> berasal dari bahasa Sanskerta <strong>buddhayah</strong>, bentuk jamak dari <em>buddhi</em> yang berarti akal atau budi. Budaya adalah <strong>keseluruhan gagasan, tindakan, dan hasil karya manusia</strong> dalam kehidupan bermasyarakat yang diperoleh melalui proses belajar dan diwariskan antargenerasi — sejalan dengan rumusan Koentjaraningrat.</p>
+    <div class="grid3">
+      <div class="card"><div class="k">1</div><h3>Wujud gagasan</h3><p>Ide, nilai, norma, dan kepercayaan yang hidup di kepala masyarakat. Sifatnya abstrak.</p></div>
+      <div class="card"><div class="k">2</div><h3>Wujud aktivitas</h3><p>Perilaku dan tindakan berpola: upacara adat, gotong royong, pertunjukan seni.</p></div>
+      <div class="card"><div class="k">3</div><h3>Wujud artefak</h3><p>Benda hasil karya: batik, gamelan, wayang, arsitektur, dan karya seni lainnya.</p></div>
+    </div>
+    <p style="margin-top:24px;font-size:19px">Seni budaya adalah salah satu bagian dari kebudayaan — tempat gagasan dan nilai masyarakat diwujudkan dalam bentuk yang indah dan dapat dinikmati.</p>
+    <div class="brand">SMK Mikael Surakarta</div>
+  </section>
+
+  <!-- 5 -->
+  <section class="slide">
+    <div class="num">05 / 12</div>
+    <div class="eyebrow">Pembahasan 1</div>
+    <h2>Mengapa Budaya Lokal Dijauhi Kalangan Muda?</h2>
+    <div class="two">
+      <div>
+        <p>karena sekarang adanya globalisasi dan anak muda menganggap kalau budaya lokal itu <strong>kuno</strong>, jadi anak muda itu sudah tidak ingin melestarikan budaya lokal</p>
+        <p><strong>Globalisasi dan media sosial</strong> mempercepat masuknya budaya luar yang dianggap lebih keren dan modern, sehingga budaya lokal semakin tertinggal di kalangan muda.</p>
+        <ul class="list" style="margin-top:18px">
+          <li><b>—</b><span>Kurangnya pengenalan sejak dini di keluarga dan sekolah</span></li>
+          <li><b>—</b><span>Kemasan budaya lokal jarang disesuaikan dengan selera muda</span></li>
+          <li><b>—</b><span>Tren global lebih mudah diakses lewat layar ponsel</span></li>
+        </ul>
+      </div>
+      <div class="quote">“Karena adanya globalisasi membuat anak-anak tidak ingin melestarikan budaya lokal”<small>Bu sekar meera</small></div>
+    </div>
+    <div class="brand">SMK Mikael Surakarta</div>
+  </section>
+
+  <!-- 6 -->
+  <section class="slide">
+    <div class="num">06 / 12</div>
+    <div class="eyebrow">Pembahasan 2</div>
+    <h2>Benarkah “Agama Mengikis Budaya”?</h2>
+    <div class="two">
+      <div>
+        <p><strong>Tidak secara langsung.</strong> Budaya tidak terkikis oleh agama, melainkan oleh perubahan zaman dan alkulturasi kebiasaan masyarakat bergeser sedikit demi sedikit seiring waktu.</p>
+        <p>Perkembangan teknologi dan masuknya budaya luar membuat generasi muda lebih memilih mengikuti tren populer, sehingga praktik budaya lokal semakin jarang dilakukan.</p>
+        <p>Yang terjadi umumnya adalah <strong>penyesuaian</strong>: unsur budaya yang bertentangan dengan ajaran agama ditinggalkan, sedangkan bentuk keseniannya tetap dipertahankan dan diberi isi nilai yang baru.</p>
+      </div>
+      <div class="quote">"Menurut saya agama tidak sepenuhnya mengikis budaya karena adanya proses alkulturasi, yang dimana dapat saling menguatkan satu sama lain"<small>bapak Broto Wahyono</small></div>
+    </div>
+    <div class="brand">SMK Mikael Surakarta</div>
+  </section>
+
+  <!-- 7 -->
+  <section class="slide">
+    <div class="num">07 / 12</div>
+    <div class="eyebrow">Pembahasan 3</div>
+    <h2>Apakah Agama Mempengaruhi Budaya?</h2>
+    <div class="two">
+      <div>
+        <p><strong>Ya.</strong> Agama dan budaya memiliki hubungan timbal balik: agama mempengaruhi bentuk dan arah budaya, sementara budaya turut mempengaruhi cara manusia menghayati agamanya.</p>
+        <p>Keduanya tidak berjalan satu arah, melainkan saling membentuk dalam kehidupan masyarakat sehari-hari.</p>
+        <div class="grid2" style="margin-top:22px">
+          <div class="card"><div class="k">→</div><h3>Agama ke budaya</h3><p>Memberi nilai, batas, dan tema karya: seni kaligrafi, musik religi, arsitektur tempat ibadah.</p></div>
+          <div class="card"><div class="k">←</div><h3>Budaya ke agama</h3><p>Memberi bentuk lokal pada penghayatan iman: bahasa, busana, gamelan, dan tradisi perayaan.</p></div>
+        </div>
+      </div>
+      <div class="quote">"sebenarnya ada berbagai macam cara untuk mempengaruhi budaya, namun dari semua cara tersebut membuat budaya lokal menjadi kurang menarik"<small>Pak Dwi listyanto</small></div>
+    </div>
+    <div class="brand">SMK Mikael Surakarta</div>
+  </section>
+
+  <!-- 8 -->
+  <section class="slide">
+    <div class="num">08 / 12</div>
+    <div class="eyebrow">Pembahasan 4</div>
+    <h2>Fungsi Agama dalam Seni Budaya</h2>
+    <p style="max-width:1000px;margin-bottom:26px">Agama menjadi pedoman agar seni budaya tetap bernilai moral dan tidak bertentangan dengan norma masyarakat, melalui lima fungsi berikut:</p>
+    <div class="grid5">
+      <div class="card"><div class="k">1</div><h3>Sumber Inspirasi</h3><p>Memberi ide untuk karya seni seperti musik religi, kaligrafi, dan sastra keagamaan.</p></div>
+      <div class="card"><div class="k">2</div><h3>Media Nilai Moral</h3><p>Menyampaikan pesan kebaikan, kejujuran, kasih sayang, dan toleransi lewat karya seni.</p></div>
+      <div class="card"><div class="k">3</div><h3>Sarana Spiritual</h3><p>Membantu manusia mengungkapkan rasa syukur dan mendekatkan diri kepada Tuhan.</p></div>
+      <div class="card"><div class="k">4</div><h3>Pelestari Budaya</h3><p>Mempertahankan tradisi dan kesenian yang sejalan dengan ajaran agama.</p></div>
+      <div class="card"><div class="k">5</div><h3>Penguat Persatuan</h3><p>Mempererat kebersamaan dan toleransi melalui seni budaya bernilai keagamaan.</p></div>
+    </div>
+    <div class="brand">SMK Mikael Surakarta</div>
+  </section>
+
+  <!-- 9 -->
+  <section class="slide">
+    <div class="num">09 / 12</div>
+    <div class="eyebrow">Sumber Data</div>
+    <h2>Narasumber</h2>
+    <p style="max-width:1000px;margin-bottom:26px">Untuk melengkapi kajian pustaka, pembahasan ini didukung keterangan dari tiga narasumber yang mewakili sudut pandang berbeda:</p>
+    <div class="grid3">
+      <div class="person">
+        <div class="avatar">A</div>
+        <div class="role">Tokoh Agama</div>
+        <div class="name">Pak Dwi Listyanto, S.Pd.</div>
+        <div class="ask">Fokus: batas dan tuntunan agama dalam berkarya seni, serta nilai yang ingin dijaga.</div>
+      </div>
+      <div class="person">
+        <div class="avatar">M</div>
+        <div class="role">Tokoh Masyarakat</div>
+        <div class="name">Muhammad Broto Wahyono</div>
+        <div class="ask">Fokus: perubahan kebiasaan warga dan peran seni budaya dalam menjaga kerukunan.</div>
+      </div>
+      <div class="person">
+        <div class="avatar">B</div>
+        <div class="role">Tokoh Budaya</div>
+        <div class="name">Bu Sekar Meera</div>
+        <div class="ask">Fokus: pelestarian kesenian tradisional dan cara menariknya kembali bagi anak muda.</div>
+      </div>
+    </div>
+    <div class="brand">SMK Mikael Surakarta</div>
+  </section>
+
+  <!-- 10 -->
+  <section class="slide">
+    <div class="num">10 / 12</div>
+    <div class="eyebrow">Hasil Wawancara</div>
+    <h2>Rangkuman Pendapat Narasumber</h2>
+    <div class="grid3" style="flex:1">
+      <div class="person">
+        <div class="role">Pak Dwi Listyanto, S.Pd.</div>
+        <div class="name" style="font-size:20px">Tokoh Agama</div>
+        <div class="noteline"></div><div class="fill">Menurut pak dwi listyanto, budaya lokal mengalami perubahan karena perkembangan teknologi dan pengaruh globalisasi, terutama melalui media sosial sehingga budaya luar lebih mudah dikenal oleh anak muda. Agama dan budaya tidak saling menghilangkan tetapi saling melengkapi dan mempengaruhi, agama juga bisa menjadi sumber inspirasi dan menyampaikan nilai-nilai kehidupan serta hubungan manusia dengan tuhan</div>
+        <div class="noteline"></div><div class="noteline"></div>
+      </div>
+      <div class="person">
+        <div class="role">Muhammad Broto Wahyono</div>
+        <div class="name" style="font-size:20px">Tokoh Masyarakat</div>
+        <div class="noteline"></div><div class="fill">menurut pak broto wahyono, budaya lokal semakin terabaikan karena masuknya budaya lokal dan penggunan media sosial. Agama dan budaya tidak sepenuh saling menghilangkan, tetapi dapat mengalami akulturasi dan saling menguatkan. Hal tersebut terlihat dari berbagai budaya dan seni seperti wayang, ukir dan ketoprak</div>
+        <div class="noteline"></div><div class="noteline"></div>
+      </div>
+      <div class="person">
+        <div class="role">Bu Sekar Meera</div>
+        <div class="name" style="font-size:20px">Tokoh Budaya</div>
+        <div class="noteline"></div><div class="fill">menurt bu sekar meera, budaya lokal mulai terpengaruh oleh globalisasi karena perkembangan teknologi yang semakin pesat membuat anak-anak lebih mengenal budaya luar, Namun, agama tidak terlalumengikis budaya karena budaya tetap berkembang mengikuti zaman dan masih dipertahankan dalam masyarakat. Agama juga dapat mempengaruhi budaya terutama melalui seni dan tradisi seperti wayang, tari dan rebana</div>
+        <div class="noteline"></div><div class="noteline"></div>
+      </div>
+    </div>
+    <div class="brand">SMK Mikael Surakarta</div>
+  </section>
+
+  <!-- 11 -->
+
+  <section class="slide">
+    <div class="num">11 / 12</div>
+    <div class="eyebrow">Penutup</div>
+    <h2>Agama dan Budaya Tumbuh Bersama,<br>Bukan Saling Meniadakan</h2>
+    <p style="max-width:1000px">Budaya lokal mulai dijauhi bukan karena agama, tetapi karena pergeseran zaman dan derasnya arus budaya luar. Agama dan budaya justru saling mempengaruhi dan berjalan berdampingan — <strong>agama memberi arah nilai, budaya menjadi wadah untuk menghidupkannya.</strong></p>
+    <div class="rule"></div>
+    <div class="big">Generasi muda memegang peran menjaga keseimbangan ini: mengenal budayanya, memahami agamanya, dan mengemas keduanya dengan cara yang hidup di zamannya.</div>
+    <div class="brand">SMK Mikael Surakarta</div>
+  </section>
+
+  <!-- 12 -->
+  <section class="slide cover">
+    <div class="num">12 / 12</div>
+    <div class="tag">Sesi Tanya Jawab</div>
+    <h1 style="font-size:70px">Terima Kasih</h1>
+    <div class="rule"></div>
+    <p style="max-width:760px">Muhammad Arkananta Permana · Octavianus Putra Yoddha Chavindo<br>X-RPL — SMK Mikael Surakarta, 2026</p>
+    <div class="brand">SMK Mikael Surakarta</div>
+  </section>
+
+</div>
+
+<div id="bar"></div>
+<div id="ctrl">
+  <button id="prev" title="Sebelumnya">‹</button>
+  <button id="next" title="Berikutnya">›</button>
+  <button id="fs" title="Layar penuh">⛶</button>
+</div>
+
+<script>
+(function(){
+  var slides=[].slice.call(document.querySelectorAll('.slide'));
+  var i=0, stage=document.getElementById('stage'), bar=document.getElementById('bar');
+  function show(n){
+    i=Math.max(0,Math.min(slides.length-1,n));
+    slides.forEach(function(s,k){s.classList.toggle('active',k===i);});
+    bar.style.width=((i+1)/slides.length*100)+'%';
+  }
+  function fit(){
+    var s=Math.min(window.innerWidth/1280, window.innerHeight/720);
+    stage.style.transform='scale('+s+')';
+  }
+  window.addEventListener('resize',fit); fit(); show(0);
+  document.getElementById('next').onclick=function(){show(i+1);};
+  document.getElementById('prev').onclick=function(){show(i-1);};
+  document.getElementById('fs').onclick=function(){
+    if(document.fullscreenElement){document.exitFullscreen();}
+    else if(document.documentElement.requestFullscreen){document.documentElement.requestFullscreen();}
+  };
+  document.addEventListener('keydown',function(e){
+    if(e.key==='ArrowRight'||e.key==='PageDown'||e.key===' '){e.preventDefault();show(i+1);}
+    else if(e.key==='ArrowLeft'||e.key==='PageUp'){e.preventDefault();show(i-1);}
+    else if(e.key==='Home'){show(0);}
+    else if(e.key==='End'){show(slides.length-1);}
+    else if(e.key==='f'||e.key==='F'){document.getElementById('fs').click();}
+  });
+  var x0=null;
+  document.addEventListener('touchstart',function(e){x0=e.touches[0].clientX;},{passive:true});
+  document.addEventListener('touchend',function(e){
+    if(x0===null)return; var dx=e.changedTouches[0].clientX-x0;
+    if(Math.abs(dx)>50){show(dx<0?i+1:i-1);} x0=null;
+  },{passive:true});
+})();
+</script>
+</body>
+</html>
